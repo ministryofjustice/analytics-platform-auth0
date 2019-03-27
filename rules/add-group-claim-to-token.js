@@ -24,15 +24,8 @@ function (user, context, callback) {
         return callback(new Error('Error retrieving teams from github: ' + body || error));
 
       } else {
-        var github_orgs = [
-          "ministryofjustice",
-          "moj-analytical-services",
-        ];
         var git_teams = JSON.parse(body).map(function (team) {
-          if (team.organization.login in github_orgs) {
-            // TODO: namespace slugs by org
-            return team.slug;
-          }
+          return team.slug;
         });
 
         // Add the namespaced claims to ID token
